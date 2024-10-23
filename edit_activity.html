@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Editar Atividade</h2>
+    <form method="POST">
+        <label for="name">Atividade:</label>
+        <input type="text" name="name" value="{{ activity['name'] }}" required><br>
+        
+        <label for="system">Sistema:</label>
+        <input type="text" name="system" value="{{ activity['system'] }}" required><br>
+        
+        <label for="start_dev">Início (Desenvolvimento):</label>
+        <input type="date" name="start_dev" value="{{ activity['start_dev'] }}" required><br>
+        
+        <label for="end_dev">Fim (Desenvolvimento):</label>
+        <input type="date" name="end_dev" value="{{ activity['end_dev'] }}" required><br>
+        
+        <label for="progress_dev">Progresso Desenvolvimento:</label>
+        <input type="text" name="progress_dev" value="{{ activity['progress_dev'] }}" required><br>
+        
+        <label for="start_test">Início (Testes):</label>
+        <input type="date" name="start_test" value="{{ activity['start_test'] }}" required><br>
+        
+        <label for="end_test">Fim (Testes):</label>
+        <input type="date" name="end_test" value="{{ activity['end_test'] }}" required><br>
+        
+        <label for="progress_test">Progresso Testes:</label>
+        <input type="text" name="progress_test" value="{{ activity['progress_test'] }}" required><br>
+        
+        <label for="deployment">Implantação:</label>
+        <input type="date" name="deployment" value="{{ activity['deployment'] }}" required><br>
+        
+        <label for="responsible">Responsável:</label>
+        <input type="text" name="responsible" value="{{ activity['responsible'] }}" required><br>
+
+        <input type="submit" value="Salvar">
+    </form>
+</div>
+{% endblock %}

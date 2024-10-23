@@ -1,0 +1,455 @@
+/* Estilos Gerais */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px; /* Largura ajustada */
+  padding: 15px; /* Reduzi o padding para liberar mais espaço */
+  background-color: white; /* Fundo branco */
+  color: #003399; /* Cor da fonte */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  height: 100vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Conteúdo no topo e rodapé */
+}
+
+.sidebar h2 {
+  font-size: 1.4em; /* Reduzi o tamanho da fonte */
+  color: #003399; /* Cor da Ford */
+  margin-bottom: 15px; /* Diminuí o espaçamento inferior */
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 2px solid #e0e0e0; /* Linha sob o título */
+  padding-bottom: 8px; /* Diminuí o padding inferior */
+}
+
+.sidebar-block {
+  margin-bottom: 15px; /* Reduzi o espaçamento entre blocos */
+  background-color: #f9f9f9; /* Fundo mais claro para destacar os blocos */
+  padding: 10px; /* Reduzi o padding */
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-block h3 {
+  font-size: 1.1em; /* Reduzi o tamanho da fonte */
+  color: #003399;
+  margin-bottom: 8px; /* Reduzi o espaçamento inferior */
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd; /* Separador para os blocos */
+  padding-bottom: 5px;
+}
+
+.sidebar-block p {
+  font-size: 0.9em; /* Reduzi o tamanho da fonte */
+  margin-bottom: 8px; /* Diminuí o espaçamento entre parágrafos */
+  line-height: 1.4;
+}
+
+.sidebar-block .milestone-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em; /* Reduzi o tamanho da fonte */
+  margin-bottom: 6px; /* Reduzi o espaçamento inferior */
+}
+
+.sidebar-block .milestone-info strong {
+  color: #003399;
+}
+
+.sidebar-block .days-remaining {
+  color: #d9534f; /* Cor vermelha para chamar atenção ao tempo restante */
+  font-weight: bold;
+}
+
+.sidebar-block .task-status {
+  font-size: 0.9em; /* Reduzi o tamanho da fonte */
+  margin-bottom: 8px; /* Diminuí o espaçamento inferior */
+  display: flex;
+  align-items: center;
+}
+
+/* Cores dos impactos */
+.impact-high {
+  color: #d9534f; /* Vermelho */
+  font-weight: bold;
+}
+
+.impact-medium {
+  color: #f0ad4e; /* Laranja */
+  font-weight: bold;
+}
+
+.impact-low {
+  color: #5cb85c; /* Verde */
+  font-weight: bold;
+}
+
+.sidebar-block ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar-block ul li {
+  margin-bottom: 12px; /* Diminuí o espaçamento entre itens */
+  font-size: 0.9em; /* Reduzi o tamanho da fonte */
+  background-color: #fff;
+  padding: 8px; /* Reduzi o padding */
+  border-radius: 6px;
+  border-left: 5px solid #003399; /* Borda para destaque */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-block ul li strong {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.sidebar img {
+  width: 100%;
+  margin-top: 15px; /* Reduzi o espaçamento superior */
+  border-radius: 8px;
+  max-width: 270px;
+  height: auto;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 320px; /* Espaço ajustado para a nova largura da sidebar */
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Cabeçalho */
+.header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #003399;
+}
+
+.header img {
+  width: 80px;
+  margin-right: 20px;
+}
+
+.header h1 {
+  color: #003399;
+  margin: 0;
+}
+
+/* Gantt Button Style */
+.gantt-btn {
+  margin-left: auto;
+  margin-right: 0;
+  padding: 6px 10px; /* Menor tamanho */
+  font-size: 0.9em;
+  float: right;
+}
+
+h2 {
+  color: #003399;
+}
+
+/* Tabelas */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #003399; /* Cor da Ford */
+  color: white;
+}
+
+/* Ajustes de largura para colunas */
+table th:nth-child(1), table td:nth-child(1) {
+  width: 40%;
+}
+
+table th:nth-child(2), table td:nth-child(2),
+table th:nth-child(3), table td:nth-child(3),
+table th:nth-child(4), table td:nth-child(4),
+table th:nth-child(6), table td:nth-child(6),
+table th:nth-child(7), table td:nth-child(7) {
+  width: 8%;
+}
+
+table th:nth-child(5), table td:nth-child(5),
+table th:nth-child(8), table td:nth-child(8) {
+  width: 8%;
+}
+
+table th:nth-child(9), table td:nth-child(9) {
+  width: 12%;
+}
+
+table th:nth-child(10), table td:nth-child(10) {
+  width: 15%;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Rodapé do Conteiner Principal */
+.footer {
+  background-color: #003399;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto; /* Garante que o rodapé esteja no fim do conteúdo */
+  border-radius: 0 0 8px 8px; /* Borda arredondada apenas no final */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  max-width: 1000px; /* Limita a largura do rodapé ao contêiner */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Progress Circle */
+.progress-circle {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.progress-circle.complete .progress-bar {
+  stroke: #28a745 !important;
+}
+
+.progressbar-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.8rem;
+  color: #000;
+}
+
+button.add-task-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.add-task-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  background-color: rgba(196, 191, 191, 0.8); /* Fundo translúcido */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  padding: 30px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  max-height: 85vh;
+}
+
+/* Estilização do título do modal */
+.modal-content h2 {
+  font-size: 1.6em; /* Mantém o título um pouco menor para focar no conteúdo */
+  color: #003399;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0; /* Linha para destacar o título */
+  padding-bottom: 10px;
+}
+
+/* Lista de tarefas no modal */
+.modal-content ul {
+  list-style-type: none; /* Remove marcadores de lista */
+  padding: 0;
+}
+
+.modal-content ul li {
+  font-size: 1em; /* Mantém a fonte clara e legível */
+  background-color: #f9f9f9; /* Fundo mais claro para separar visualmente as tarefas */
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border-left: 5px solid #003399; /* Borda lateral para destacar */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05); /* Sombra suave */
+}
+
+.modal-content ul li strong {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #003399; /* Cor de destaque para os títulos */
+}
+
+/* Impactos das tarefas */
+.modal-content .impact-high {
+  color: #d9534f; /* Vermelho para alto impacto */
+  font-weight: bold;
+}
+
+.modal-content .impact-medium {
+  color: #f0ad4e; /* Laranja para médio impacto */
+  font-weight: bold;
+}
+
+.modal-content .impact-low {
+  color: #5cb85c; /* Verde para baixo impacto */
+  font-weight: bold;
+}
+
+/* Estilização do botão de fechar */
+.close-btn {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 8px 12px; /* Tamanho reduzido do botão */
+  cursor: pointer;
+  border-radius: 5px;
+  position: absolute; /* Posiciona no canto superior direito */
+  top: 10px;
+  right: 10px;
+  font-size: 0.9em; /* Fonte menor */
+}
+
+.close-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Gantt Chart Styling */
+#gantt-chart {
+  margin: 20px auto;
+  max-width: 900px;
+  height: auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#risk-analysis-table th, #risk-analysis-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+#risk-analysis-table th {
+  background-color: #003399;
+  color: white;
+}
+
+#risk-analysis-table td {
+  background-color: #f9f9f9;
+}
+
+/* Ajuste de largura para colunas */
+#risk-analysis-table th:nth-child(1), #risk-analysis-table td:nth-child(1) {
+  width: auto; /* Ajuste dinâmico */
+  max-width: 150px;
+  word-wrap: break-word;
+}
+
+#risk-analysis-table th:nth-child(2), #risk-analysis-table td:nth-child(2) {
+  width: 50%;
+}
+
+#risk-analysis-table th:nth-child(3), #risk-analysis-table td:nth-child(3) {
+  width: 20%;
+}
+
+#risk-analysis-table th:nth-child(4), #risk-analysis-table td:nth-child(4) {
+  width: 10%;
+}
+
+#risk-analysis-table th:nth-child(5), #risk-analysis-table td:nth-child(5) {
+  width: 10%;
+}
+
+/* Estilos para os indicadores de status */
+.status-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-indicator.vermelho {
+  background-color: #d9534f;
+}
+
+.status-indicator.amarelo {
+  background-color: #f0ad4e;
+}
+
+.status-indicator.verde {
+  background-color: #5cb85c;
+}
+
+/* Centralização do conteúdo das colunas */
+#risk-analysis-table th:nth-child(4),
+#risk-analysis-table td:nth-child(4),
+#risk-analysis-table th:nth-child(5),
+#risk-analysis-table td:nth-child(5) {
+  text-align: center;
+  vertical-align: middle;
+}

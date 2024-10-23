@@ -1,0 +1,133 @@
+{
+    "anotacoes": [
+        {
+            "atividade": "API de emissão de NFe, VR e eMIS (Json)",
+            "categoria": "transferencia_veiculos_novos",
+            "anotacoes": [
+                "Problema com o XML e ICMS:\r\n\r\nAo realizar testes, Ronaldo observou que o IAP está removendo o ICMS ao montar o XML, mesmo que as informações estejam presentes no JSON. Isso faz com que a SEFAZ recuse a emissão da nota. Será necessário verificar com o IAP o motivo dessa remoção.\r\nLimitação no Campo \"NVE\":\r\n\r\nFoi identificada uma limitação no payload de importação do IAP: o campo \"NVE\" (Nomenclatura de Valor Aduaneiro e Estatística) permite atualmente a inserção de apenas um NVE. No entanto, a SEFAZ permite até 8 NVEs. É possível que o campo \"NVE\" precise ser um array. Será necessário verificar essa questão e fornecer um retorno."
+            ]
+        },
+        {
+            "atividade": "Webhook - Atualizar \"Status\" e \"Chave NFe\" (contingência) no DB2",
+            "categoria": "transferencia_veiculos_novos",
+            "anotacoes": [
+                "Apenas para verificar se vai estar salvando corretamente as anotações que eu desejo que sejas. \r\n"
+            ]
+        },
+        {
+            "atividade": "Analisar Triggers devido ao UPDATE do \"Status\" e \"Chave NFe\" (em caso de contingência) no DB2",
+            "categoria": "transferencia_veiculos_novos",
+            "anotacoes": [
+                "Apenas para verificar se vai estar salvando corretamente as anotações que eu desejo que sejas. \r\n"
+            ]
+        },
+        {
+            "atividade": "API de update \"Gate de Saída / Entrada\" no NF DB2",
+            "categoria": "transferencia_veiculos_novos",
+            "anotacoes": [
+                "Apenas para verificar se vai estar salvando corretamente as anotações que eu desejo que sejas. \r\n"
+            ]
+        },
+        {
+            "atividade": "Leitura do \"Código de Barras\" / Consumo API de update \"Gate de Saída / Entrada\"",
+            "categoria": "transferencia_veiculos_novos",
+            "anotacoes": [
+                "Apenas para verificar se vai estar salvando corretamente as anotações que eu desejo que sejas. \r\n"
+            ]
+        },
+        {
+            "atividade": "Leitura do \"Código de Barras\" / Consumo API de update \"Gate de Saída / Entrada\"",
+            "categoria": "remessa_veiculos_demonstração",
+            "anotacoes": [
+                "Validar a integração do código de barras com o ERP principal.",
+                "Documentar problemas encontrados na leitura de códigos especiais."
+            ]
+        },
+        {
+            "atividade": "Mapeamento da consistência da NF de Retorno de Demonstração (Dealer) X NF de Remessa de Demonstração (Ford)",
+            "categoria": "remessa_veiculos_demonstração",
+            "anotacoes": [
+                "Comparar NFs emitidas no sistema Dealer e Ford para garantir consistência.",
+                "Ajustar parâmetros de validação para NFs de retorno parcial."
+            ]
+        },
+        {
+            "atividade": "Cadastro de estabelecimentos no IAP para emissão de notas de mercadoria e diversos",
+            "categoria": "remessa_veiculos_demonstração",
+            "anotacoes": [
+                "Completar cadastro de estabelecimentos até 18 de setembro.",
+                "Sincronizar informações com o módulo de mercadorias diversas."
+            ]
+        },
+        {
+            "atividade": "Autorização de Estabelecimentos para Emissão de Notas Fiscais",
+            "categoria": "remessa_veiculos_demonstração",
+            "anotacoes": [
+                "Confirmar autorização antes da emissão de qualquer NF.",
+                "Verificar compliance com as regras fiscais locais."
+            ]
+        },
+        {
+            "atividade": "Mapeamento da SENF Manual (Transferência, Remessa, Venda, etc.)",
+            "categoria": "outras_tarefas",
+            "anotacoes": [
+                "Mapear todas as transações manuais de SENF no sistema BTH.",
+                "Criar um relatório para o time financeiro."
+            ]
+        },
+        {
+            "atividade": "Mapeamento da SENF Automática (Transferência, Remessa, Venda, etc.)",
+            "categoria": "outras_tarefas",
+            "anotacoes": [
+                "Configurar SENF automática para operações de exportação.",
+                "Sincronizar com a equipe de TI para ajustar o envio automático."
+            ]
+        },
+        {
+            "atividade": "Envio de Email para Transportadoras",
+            "categoria": "outras_tarefas",
+            "anotacoes": [
+                "Implementar um template de email para o envio automático.",
+                "Adicionar campos dinâmicos para preenchimento de informações do cliente."
+            ]
+        },
+        {
+            "atividade": "Analise da Possibilidade de Importação de XML's de NF emitidas pelo SAMIS no IAP",
+            "categoria": "outras_tarefas",
+            "anotacoes": [
+                "Validar o schema dos XMLs importados pelo SAMIS.",
+                "Coordenar com a equipe de infraestrutura para suporte de grandes volumes de dados."
+            ]
+        },
+        {
+            "atividade": "Mapeamento de filtros para veículos, peças, diversos e operações de importação/exportação",
+            "categoria": "outras_tarefas",
+            "anotacoes": [
+                "Ajustar filtros de importação para suportar novos tipos de veículos.",
+                "Testar operações com peças importadas antes da próxima revisão."
+            ]
+        },
+        {
+            "atividade": "Mapeamento de filtros para logística: exclusão de notas de entrada e inclusão de notas de saída para transportadora",
+            "categoria": "outras_tarefas",
+            "anotacoes": [
+                "Ajustar filtros logísticos para inclusão e exclusão de notas de entrada e saída.",
+                "Sincronizar com o sistema principal do IAP."
+            ]
+        },
+        {
+            "atividade": "Implatação Da Escrituração De Veículos à partir Do FZ (JOBS E PROGRAMAS)",
+            "categoria": "outras_tarefas",
+            "anotacoes": [
+                "Realizar a implantação do programa de escrituração até 01/10/2024. Marcos castro esta responsavel"
+            ]
+        },
+        {
+            "atividade": "API de emissão  de NFe, VR e eMIS (Json)",
+            "categoria": "transferencia_veiculos_novos",
+            "anotacoes": [
+                "Ronaldo solicitou para que a equipe do IAP análise porque as tags que estão sendo enviadas por ele através do json  que possui os impostos de ICMS estão sendo retirados pelo IAP na hora que ele monta o XML E isso está fazendo com que a secretaria da fazenda recuse a emissão da nota \r\n"
+            ]
+        }
+    ]
+}

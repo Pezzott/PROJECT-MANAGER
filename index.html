@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Manager</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/progressbar.js"></script>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Project Health</h2>
+
+    <!-- Milestone Countdown -->
+    <div class="sidebar-block">
+      <h3>Upcoming Milestones</h3>
+      <p><strong>Development End:</strong> 29/11/2024<br>
+        <strong>Days Remaining:</strong> <span id="dev-countdown"></span>
+      </p>
+      <p><strong>Testing Start:</strong> 02/12/2024<br>
+        <strong>Days Remaining:</strong> <span id="test-countdown"></span>
+      </p>
+    </div>
+
+    <!-- Tasks At Risk -->
+    <div class="sidebar-block">
+      <button id="openTasksAtRiskModal" class="tasks-button" style="background:none; border:none; padding:0;">
+        <h3>Tasks At Risk</h3>
+      </button>
+      <ul id="at-risk-tasks">
+        <li>
+          <strong>Task:</strong> API de emissão de NFe, VR e eMIS (Json) <br>
+          <strong>Impact:</strong> <span class="impact-high">High</span><br>
+          <strong>Justification:</strong> The progress is low (37%) and there is a risk of discovering critical bugs
+          late in the testing phase.
+        </li>
+        <li>
+          <strong>Task:</strong> Webhook - Atualizar "Status" e "Chave NFe" (contingência) no DB2<br>
+          <strong>Impact:</strong> <span class="impact-high">High</span><br>
+          <strong>Justification:</strong> The Webhook task has not started yet (0% progress) and is crucial for handling
+          the return status of NFe issuance.
+        </li>
+      </ul>
+    </div>
+
+    <img
+      src="https://live.dealer-asset.co/images/br1001/product/paintSwatch/vehicle/ford-brasil-ranger-raptor-azul-belize-v2-271123.jpg?s=1024"
+      alt="Ford Ranger">
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" alt="Ford Logo"
+        class="img-fluid">
+      <h1>Projeto: IAP Fase II - Detalhamento das Atividades</h1>
+      <a href="{{ url_for('pareto_chart') }}" class="btn btn-info gantt-btn">Priority Analysis - Pareto</a>
+    </div>
+
+    <!-- Tabelas de Cronograma -->
+    <h2>Transferência de Veículos Novos</h2>
+    <table id="transferencia" class="table table-striped table-responsive">
+      <thead class="thead-blue">
+        <tr>
+          <th>Atividade</th>
+          <th>Sistema</th>
+          <th class="date-column">Início (Desenvolvimento)</th>
+          <th class="date-column">Fim (Desenvolvimento)</th>
+          <th>Progresso Desenvolvimento</th>
+          <th class="date-column">Início (Testes)</th>
+          <th class="date-column">Fim (Testes)</th>
+          <th>Progresso Testes</th>
+          <th>Implantação</th>
+          <th>Progresso Implantação</th>
+          <th>Responsável</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Atividades para transferência serão carregadas aqui -->
+      </tbody>
+    </table>
+
+    <h2>Remessa de Veículos para Demonstração</h2>
+    <table id="remessa" class="table table-striped table-responsive">
+      <thead class="thead-blue">
+        <tr>
+          <th>Atividade</th>
+          <th>Sistema</th>
+          <th class="date-column">Início (Desenvolvimento)</th>
+          <th class="date-column">Fim (Desenvolvimento)</th>
+          <th>Progresso Desenvolvimento</th>
+          <th class="date-column">Início (Testes)</th>
+          <th class="date-column">Fim (Testes)</th>
+          <th>Progresso Testes</th>
+          <th>Implantação</th>
+          <th>Progresso Implantação</th>
+          <th>Responsável</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Atividades para remessa serão carregadas aqui -->
+      </tbody>
+    </table>
+
+    <h2>Outras Tarefas</h2>
+    <table id="outras-tarefas" class="table table-striped table-responsive">
+      <thead class="thead-blue">
+        <tr>
+          <th>Atividade</th>
+          <th>Sistema</th>
+          <th class="date-column">Início (Desenvolvimento)</th>
+          <th class="date-column">Fim (Desenvolvimento)</th>
+          <th>Progresso Desenvolvimento</th>
+          <th class="date-column">Início (Testes)</th>
+          <th class="date-column">Fim (Testes)</th>
+          <th>Progresso Testes</th>
+          <th>Implantação</th>
+          <th>Progresso Implantação</th>
+          <th>Responsável</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Outras tarefas serão carregadas aqui -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer text-center mt-5">
+    © 2024 Ford Motors. Todos os direitos reservados.
+  </div>
+
+  <!-- Modal for Tasks At Risk -->
+  <div id="tasksAtRiskModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModalBtn">Cancelar</button>
+      <h2>Análise de Riscos</h2>
+      <table id="risk-analysis-table" class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th>Risco</th>
+            <th>Ação Tomada</th>
+            <th>Tempo de Mitigação</th>
+            <th>Status</th>
+            <th>Progresso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Detalhes dos riscos serão carregados aqui -->
+          {% for risco in riscos %}
+          <tr>
+            <td>{{ risco.risco }}</td>
+            <td>{{ risco.acao_tomada }}</td>
+            <td>{{ risco.tempo_mitigacao }}</td>
+            <td>
+              <div class="status-indicator {{ risco.status|lower }}"></div>
+            </td>
+            <td>{{ risco.progresso }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal for Annotations -->
+  <div id="annotationsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeAnnotationsModal">&times;</span>
+      <h2>Anotações para a Atividade</h2>
+      <div id="annotations-container">
+        <!-- As anotações serão carregadas aqui dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script para carregar e atualizar atividades do JSON -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      loadActivities(); // Carregar atividades ao iniciar a página
+      attachTaskRiskModalEvents(); // Adicionar eventos de clique para o modal de Tasks At Risk
+    });
+
+    function loadActivities() {
+      fetch('/activities')
+        .then(response => response.json())
+        .then(data => {
+          const transferenciaTableBody = document.querySelector('#transferencia tbody');
+          const remessaTableBody = document.querySelector('#remessa tbody');
+          const outrasTableBody = document.querySelector('#outras-tarefas tbody');
+
+          transferenciaTableBody.innerHTML = '';
+          remessaTableBody.innerHTML = '';
+          outrasTableBody.innerHTML = '';
+
+          // Preencher os dados para cada categoria de atividades
+          loadTableData(transferenciaTableBody, data.transferencia_veiculos_novos, 'transferencia_veiculos_novos');
+          loadTableData(remessaTableBody, data.remessa_veiculos_demonstracao, 'remessa');
+          loadTableData(outrasTableBody, data.outras_tarefas, 'outras_tarefas');
+
+          // Adicionar eventos de clique para abrir o modal de anotações
+          attachActivityClickEvents();
+        })
+        .catch(error => console.error('Erro ao carregar atividades:', error));
+    }
+
+    function loadTableData(tableBody, activities, category) {
+      if (!activities) return;
+
+      activities.forEach((activity, index) => {
+        const row = createRow(activity, `dev-${category}-${index}`, `test-${category}-${index}`, `deployment-${category}-${index}`);
+        tableBody.insertAdjacentHTML('beforeend', row);
+        createProgressCircle(`dev-${category}-${index}`, parseProgress(activity.progress_dev));
+        createProgressCircle(`test-${category}-${index}`, parseProgress(activity.progress_test));
+        createProgressCircle(`deployment-${category}-${index}`, parseProgress(activity.progress_deployment));
+      });
+    }
+
+    function createRow(activity, devId, testId, deploymentId) {
+      return `
+        <tr>
+          <td class="activity-name">${activity.name}</td>
+          <td>${activity.system}</td>
+          <td>${activity.start_dev}</td>
+          <td>${activity.end_dev}</td>
+          <td><div id="${devId}" class="progress-circle"></div></td>
+          <td>${activity.start_test}</td>
+          <td>${activity.end_test}</td>
+          <td><div id="${testId}" class="progress-circle"></div></td>
+          <td>${activity.deployment}</td>
+          <td><div id="${deploymentId}" class="progress-circle"></div></td>
+          <td>${activity.responsible}</td>
+        </tr>
+      `;
+    }
+
+    function attachActivityClickEvents() {
+      const activityRows = document.querySelectorAll('.activity-name');
+
+      activityRows.forEach(row => {
+        row.addEventListener('click', function () {
+          const activityName = row.innerText.trim(); // Nome da atividade capturado
+          const category = row.closest('table').id; // Categoria baseada no id da tabela
+          openAnnotationsModal(activityName, category);
+        });
+      });
+    }
+
+    function openAnnotationsModal(activityName, category) {
+      const modal = document.getElementById('annotationsModal');
+      const annotationsContainer = document.getElementById('annotations-container');
+
+      // Ajustar a categoria para corresponder ao mapeamento do back-end
+      const categoryMapping = {
+        'transferencia': 'transferencia_veiculos_novos',
+        'remessa': 'remessa_veiculos_demonstracao',
+        'outras-tarefas': 'outras_tarefas'
+      };
+
+
+      const cleanCategory = categoryMapping[category] || category;
+
+      fetch(`/get_annotations?activity=${encodeURIComponent(activityName)}&category=${encodeURIComponent(cleanCategory)}`)
+        .then(response => response.json())
+        .then(data => {
+          annotationsContainer.innerHTML = '';  // Limpar conteúdo anterior
+
+          if (data.anotacoes.length > 0) {
+            data.anotacoes.forEach(annotation => {
+              const annotationItem = document.createElement('p');
+              annotationItem.textContent = annotation;
+              annotationsContainer.appendChild(annotationItem);
+            });
+          } else {
+            annotationsContainer.textContent = 'Nenhuma anotação encontrada para esta atividade.';
+          }
+
+          modal.style.display = 'block';
+        })
+        .catch(error => console.error('Erro ao carregar anotações:', error));
+    }
+
+    document.getElementById('closeAnnotationsModal').addEventListener('click', function () {
+      document.getElementById('annotationsModal').style.display = 'none';
+    });
+
+    function parseProgress(progress) {
+      if (!progress || progress === 'N/A') {
+        return 0;
+      }
+      return parseFloat(progress.replace('%', '')) / 100;
+    }
+
+    function createProgressCircle(id, percentage) {
+      const color = percentage < 1 ? '#3498db' : '#28a745';
+      const circle = new ProgressBar.Circle(`#${id}`, {
+        color: color,
+        strokeWidth: 10,
+        trailWidth: 5,
+        text: {
+          value: `${Math.round(percentage * 100)}%`,
+          className: 'progress-text'
+        },
+        step: (state, circle) => {
+          circle.setText(Math.round(circle.value() * 100) + '%');
+        }
+      });
+      circle.animate(percentage);
+    }
+
+    function attachTaskRiskModalEvents() {
+      const modal = document.getElementById('tasksAtRiskModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const openModalBtn = document.getElementById('openTasksAtRiskModal');
+      const riskTableBody = document.querySelector('#risk-analysis-table tbody');
+
+      openModalBtn.addEventListener('click', function () {
+        fetch('/riscos')
+          .then(response => response.json())
+          .then(data => {
+            riskTableBody.innerHTML = ''; // Limpar conteúdo anterior
+            data.riscos.forEach(risk => {
+              const row = `
+                <tr>
+                  <td>${risk.risco}</td>
+                  <td>${risk.acao_tomada}</td>
+                  <td>${risk.tempo_mitigacao}</td>
+                  <td><div class="status-indicator ${risk.status.toLowerCase()}"></div></td>
+                  <td>${risk.progresso}</td>
+                </tr>
+              `;
+              riskTableBody.insertAdjacentHTML('beforeend', row);
+            });
+            modal.style.display = 'block';
+          })
+          .catch(error => console.error('Erro ao carregar os riscos:', error));
+      });
+
+      closeModalBtn.addEventListener('click', function () {
+        modal.style.display = 'none';
+      });
+
+      window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadActivities();
+    });
+  </script>
+
+</body>
+
+</html>

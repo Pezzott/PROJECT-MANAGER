@@ -1,0 +1,23 @@
+{
+    "project_title": "Projeto: IAP Fase II - Detalhamento das Atividades",
+    "transferencia_veiculos_novos": {
+        "prioridades": [
+            {"atividade": "API de emissão de NFe, VR e eMIS (Json)", "impacto": 50},
+            {"atividade": "Webhook - Atualizar 'Status' e 'Chave NFe' (contingência) no DB2", "impacto": 40}
+        ]
+    },
+    "remessa_veiculos_demonstração": {
+        "prioridades": [
+            {"atividade": "Mapeamento do INSERT da NF de Retorno de Demonstração (Dealer) no NF DB2 e suas tarefas envolvidas", "impacto": 40},
+            {"atividade": "Desenvolvimento da consistência da NF de Retorno de Demonstração (Dealer) X NF de Remessa de Demonstração (Ford)", "impacto": 30}
+        ]
+    },
+    "outras_tarefas": {
+        "prioridades": [
+            {"atividade": "Importação de XML's de NF emitidas pelo SAMIS no IAP", "impacto": 20},
+            {"atividade": "Mapeamento da SENF Automática (Transferência, Remessa, Venda, etc.)", "impacto": 15},
+            {"atividade": "Envio de Email para Transportadoras", "impacto": 15},
+            {"atividade": "Mapeamento de filtros para veículos, peças, diversos e operações de importação/exportação", "impacto": 15}
+        ]
+    }
+}

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_styles.css') }}">
+</head>
+
+<body>
+    <!-- Cabeçalho com logotipo e título -->
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" alt="Ford Logo"
+            class="img-fluid">
+        <h1>Painel Administrativo</h1>
+        <a href="/" class="btn btn-info home-btn">Home</a>
+    </div>
+
+    <!-- Botões de Controle (Adicionar, Editar e Anotações) -->
+    <div class="container">
+        <h2>Gerenciador de Tarefas</h2>
+        <button id="add-task-btn" class="add-task-btn">Adicionar Tarefa</button>
+        <button class="edit-task-btn">Editar Tarefa</button>
+        <button class="note-task-btn">Anotações</button>
+    </div>
+
+    <!-- Modais para adicionar, editar e anotar -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close close-add">&times;</span>
+            <h2>Adicionar Nova Tarefa</h2>
+            <form id="add-task-form">
+                <label for="section">Seção:</label>
+                <select id="section" name="section" required>
+                    <option value="transferencia_veiculos_novos">Transferência de Veículos Novos</option>
+                    <option value="remessa_veiculos_demonstracao">Remessa de Veículos para Demonstração</option>
+                    <option value="outras_tarefas">Outras Tarefas</option>
+                </select>
+
+                <label for="name">Nome da Atividade:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="system">Sistema:</label>
+                <input type="text" id="system" name="system" required>
+
+                <label for="start_dev">Início (Desenvolvimento):</label>
+                <input type="date" id="start_dev" name="start_dev" required>
+
+                <label for="end_dev">Fim (Desenvolvimento):</label>
+                <input type="date" id="end_dev" name="end_dev" required>
+
+                <label for="progress_dev">Progresso Desenvolvimento:</label>
+                <input type="text" id="progress_dev" name="progress_dev" required>
+
+                <label for="start_test">Início (Testes):</label>
+                <input type="date" id="start_test" name="start_test" required>
+
+                <label for="end_test">Fim (Testes):</label>
+                <input type="date" id="end_test" name="end_test" required>
+
+                <label for="progress_test">Progresso Testes:</label>
+                <input type="text" id="progress_test" name="progress_test" required>
+
+                <label for="deployment">Implantação:</label>
+                <input type="date" id="deployment" name="deployment" required>
+
+                <label for="responsible">Responsável:</label>
+                <input type="text" id="responsible" name="responsible" required>
+
+                <button type="submit">Salvar Tarefa</button>
+                <button type="button" class="cancel-add-btn">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close close-edit">&times;</span>
+            <h2>Editar Tarefa</h2>
+            <form id="edit-task-form">
+                <label for="edit-section">Seção:</label>
+                <select id="edit-section" name="section" required>
+                    <option value="transferencia_veiculos_novos">Transferência de Veículos Novos</option>
+                    <option value="remessa_veiculos_demonstracao">Remessa de Veículos para Demonstração</option>
+                    <option value="outras_tarefas">Outras Tarefas</option>
+                </select>
+
+                <label for="edit-task-select">Nome da Atividade:</label>
+                <select id="edit-task-select" name="task_name" required></select>
+
+                <label for="edit-name">Nome:</label>
+                <input type="text" id="edit-name" name="name" required>
+
+                <label for="edit-system">Sistema:</label>
+                <input type="text" id="edit-system" name="system" required>
+
+                <label for="edit-start_dev">Início (Desenvolvimento):</label>
+                <input type="date" id="edit-start_dev" name="start_dev" required>
+
+                <label for="edit-end_dev">Fim (Desenvolvimento):</label>
+                <input type="date" id="edit-end_dev" name="end_dev" required>
+
+                <label for="edit-progress_dev">Progresso Desenvolvimento:</label>
+                <input type="text" id="edit-progress_dev" name="progress_dev" required>
+
+                <label for="edit-start_test">Início (Testes):</label>
+                <input type="date" id="edit-start_test" name="start_test" required>
+
+                <label for="edit-end_test">Fim (Testes):</label>
+                <input type="date" id="edit-end_test" name="end_test" required>
+
+                <label for="edit-progress_test">Progresso Testes:</label>
+                <input type="text" id="edit-progress_test" name="progress_test" required>
+
+                <label for="edit-deployment">Implantação:</label>
+                <input type="date" id="edit-deployment" name="deployment" required>
+
+                <label for="edit-responsible">Responsável:</label>
+                <input type="text" id="edit-responsible" name="responsible" required>
+
+                <button type="submit">Salvar Alterações</button>
+                <button type="button" class="cancel-edit-btn">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Novo modal para anotações -->
+    <div id="noteModal" class="modal">
+        <div class="modal-content">
+            <span class="close close-note">&times;</span>
+            <h2>Anotações</h2>
+            <form id="note-form">
+                <label for="note-category">Categoria:</label>
+                <select id="note-category" name="category" required>
+                    <option value="">Selecione a Categoria</option>
+                    <option value="transferencia_veiculos_novos">Transferência de Veículos Novos</option>
+                    <option value="remessa_veiculos_demonstracao">Remessa de Veículos para Demonstração</option>
+                    <option value="outras_tarefas">Outras Tarefas</option>
+                </select>
+
+                <label for="note-activity">Atividade:</label>
+                <select id="note-activity" name="activity" required>
+                    <option value="">Selecione uma Atividade</option>
+                </select>
+
+                <label for="note-content">Anotações:</label>
+                <textarea id="note-content" name="note" rows="8" placeholder="Insira suas anotações aqui..."></textarea>
+
+                <button type="submit">Salvar Anotação</button>
+                <button type="button" class="cancel-note-btn">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Inclua o JavaScript aqui -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Variáveis para os modais e botões
+            var addTaskModal = document.getElementById("taskModal");
+            var editTaskModal = document.getElementById("editTaskModal");
+            var noteModal = document.getElementById("noteModal");
+            var addTaskBtn = document.getElementById("add-task-btn");
+            var editBtns = document.getElementsByClassName("edit-task-btn");
+            var noteBtns = document.getElementsByClassName("note-task-btn"); // Botões de anotações
+            var closeAddSpan = document.getElementsByClassName("close-add")[0];
+            var closeEditSpan = document.getElementsByClassName("close-edit")[0];
+            var closeNoteSpan = document.getElementsByClassName("close-note")[0];
+            var cancelAddBtn = document.getElementsByClassName("cancel-add-btn")[0];
+            var cancelEditBtn = document.getElementsByClassName("cancel-edit-btn")[0];
+            var cancelNoteBtn = document.getElementsByClassName("cancel-note-btn")[0];
+
+            // Abrir o modal de adicionar tarefa
+            addTaskBtn.onclick = function () {
+                addTaskModal.style.display = "block";
+            };
+
+            // Fechar o modal de adicionar tarefa ao clicar no X
+            closeAddSpan.onclick = function () {
+                addTaskModal.style.display = "none";
+            };
+
+            // Fechar o modal de adicionar tarefa ao clicar no botão de cancelar
+            cancelAddBtn.onclick = function () {
+                addTaskModal.style.display = "none";
+            };
+
+            // Fechar os modais ao clicar fora deles
+            window.onclick = function (event) {
+                if (event.target == addTaskModal) {
+                    addTaskModal.style.display = "none";
+                }
+                if (event.target == editTaskModal) {
+                    editTaskModal.style.display = "none";
+                }
+                if (event.target == noteModal) {
+                    noteModal.style.display = "none";
+                }
+            };
+
+            // Carregar tarefas no modal de anotações com base na categoria selecionada
+            var categorySelect = document.getElementById('note-category');
+            var activitySelect = document.getElementById('note-activity');
+
+            categorySelect.onchange = function () {
+                var category = categorySelect.value;
+                activitySelect.innerHTML = '<option value="">Selecione uma Atividade</option>'; // Limpa atividades anteriores
+
+                if (category) {
+                    fetch(`/get-tasks?section=${category}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.tasks) {
+                                data.tasks.forEach(task => {
+                                    var option = document.createElement('option');
+                                    option.value = task.name;
+                                    option.textContent = task.name;
+                                    activitySelect.appendChild(option);
+                                });
+                            }
+                        })
+                        .catch(error => console.error('Erro ao buscar tarefas:', error));
+                }
+            };
+
+            // Preencher campo de anotações ao selecionar a atividade
+            activitySelect.onchange = function () {
+                var category = categorySelect.value;
+                var activity = activitySelect.value;
+
+                if (category && activity) {
+                    fetch('/get-note', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `category=${category}&activity=${activity}`
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById("note-content").value = data.note.join('\n');
+                        })
+                        .catch(error => console.error('Erro ao buscar anotação:', error));
+                }
+            };
+
+            // Iterar sobre os botões de edição e configurar eventos de clique
+            Array.from(editBtns).forEach(function (btn) {
+                btn.onclick = function () {
+                    var taskName = this.getAttribute('data-task-name');
+                    var section = this.getAttribute('data-section');
+
+                    console.log("Task Name:", taskName);  // Verifique se o nome da tarefa está correto
+                    console.log("Section:", section);     // Verifique se a seção está correta
+
+                    fetch('/get-task', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `section=${section}&task_name=${taskName}`
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.task) {
+                                document.getElementById("edit-name").value = data.task.name;
+                                document.getElementById("edit-system").value = data.task.system;
+                                document.getElementById("edit-start_dev").value = data.task.start_dev;
+                                document.getElementById("edit-end_dev").value = data.task.end_dev;
+                                document.getElementById("edit-progress_dev").value = data.task.progress_dev;
+                                document.getElementById("edit-start_test").value = data.task.start_test;
+                                document.getElementById("edit-end_test").value = data.task.end_test;
+                                document.getElementById("edit-progress_test").value = data.task.progress_test;
+                                document.getElementById("edit-deployment").value = data.task.deployment;
+                                document.getElementById("edit-responsible").value = data.task.responsible;
+                                document.getElementById("edit-task-select").value = taskName;  // Certifique-se de que o campo edit-task-select existe
+                                document.getElementById("edit-section").value = section;
+                                editTaskModal.style.display = "block";
+                            } else if (data.error) {
+                                alert(data.error);
+                            }
+                        })
+                        .catch(error => console.error('Erro ao buscar tarefa:', error));
+                };
+            });
+
+            // Fechar o modal de editar tarefa ao clicar no X
+            closeEditSpan.onclick = function () {
+                editTaskModal.style.display = "none";
+            };
+
+            // Fechar o modal de editar tarefa ao clicar no botão de cancelar
+            cancelEditBtn.onclick = function () {
+                editTaskModal.style.display = "none";
+            };
+
+            // Submeter alterações de edição de tarefa
+            var editForm = document.getElementById('edit-task-form');
+            editForm.onsubmit = function (event) {
+                event.preventDefault();
+
+                var formData = new FormData(editForm);
+                fetch('/edit-task', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert(data.message);
+                            editTaskModal.style.display = "none";
+                        } else if (data.error) {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => console.error('Erro ao editar tarefa:', error));
+            };
+
+            // Iterar sobre os botões de anotações e configurar eventos de clique
+            Array.from(noteBtns).forEach(function (btn) {
+                btn.onclick = function () {
+                    var category = btn.getAttribute('data-category');
+                    var activity = btn.getAttribute('data-task-name');
+
+                    console.log("Botão Anotação: Categoria:", category, "Atividade:", activity);  // Log para verificar
+
+                    fetch('/get-note', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `category=${category}&activity=${activity}`
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Dados recebidos do backend:", data);  // Verificar o que está sendo recebido
+                            document.getElementById("note-category").value = category;
+                            document.getElementById("note-activity").value = activity;
+                            document.getElementById("note-content").value = data.note.join('\n') || "";  // Adiciona um valor vazio se não houver nota
+                            noteModal.style.display = "block";
+                        })
+                        .catch(error => console.error('Erro ao buscar anotação:', error));
+                }
+            });
+
+            // Fechar o modal de anotações ao clicar no X
+            closeNoteSpan.onclick = function () {
+                noteModal.style.display = "none";
+            };
+
+            // Fechar o modal de anotações ao clicar no botão de cancelar
+            cancelNoteBtn.onclick = function () {
+                noteModal.style.display = "none";
+            };
+
+            // Submeter alterações de anotações
+            var noteForm = document.getElementById('note-form');
+            noteForm.onsubmit = function (event) {
+                event.preventDefault();
+
+                var formData = new FormData(noteForm);
+                fetch('/save-note', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert(data.message);
+                            noteModal.style.display = "none";
+                        } else if (data.error) {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => console.error('Erro ao salvar anotação:', error));
+            };
+        });
+    </script>
+</body>
+
+</html>

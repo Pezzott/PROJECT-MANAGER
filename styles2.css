@@ -1,0 +1,278 @@
+/* Estilos Gerais */
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 15%;
+  padding: 20px;
+  position: fixed;
+  height: 100vh;
+  background-color: white;
+}
+
+.sidebar-block {
+  background-color: #f0f0f0;
+  color: #333;
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-block h3 {
+  font-size: 1.4em;
+  margin-bottom: 15px;
+}
+
+/* Estilos de Impacto */
+.impact-high {
+  color: red;
+  font-weight: bold;
+}
+
+.impact-medium {
+  color: orange;
+  font-weight: bold;
+}
+
+.impact-low {
+  color: green;
+  font-weight: bold;
+}
+
+/* Lista de Tarefas */
+#at-risk-tasks {
+  list-style-type: none;
+  padding: 0;
+}
+
+#at-risk-tasks li {
+  margin-bottom: 15px;
+  font-size: 0.95em;
+}
+
+#at-risk-tasks strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.sidebar img {
+  width: 100%;
+  margin-top: 40px;
+  border-radius: 8px;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  height: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  background-color: #3498db;
+  height: 100%;
+  border-radius: 10px;
+  width: 0%;
+  transition: width 0.5s;
+}
+
+/* Container Principal */
+.container {
+  width: 80%;
+  margin-left: 20%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #003399;
+  padding-bottom: 10px;
+}
+
+.header img {
+  width: 80px;
+  margin-right: 20px;
+}
+
+.header h1 {
+  color: #003399;
+  margin: 0;
+}
+
+h2 {
+  color: #003399;
+}
+
+/* Tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #003399;
+  color: white;
+}
+
+/* Ajustes de largura para colunas */
+table th:nth-child(1), table td:nth-child(1) { 
+  width: 35%; /* Aumentar ainda mais a largura da coluna Atividade */
+}
+
+table th:nth-child(2), table td:nth-child(2) { 
+  width: 8%; /* Reduzir mais a largura da coluna Sistema */
+}
+
+table th:nth-child(3), table td:nth-child(3),
+table th:nth-child(4), table td:nth-child(4),
+table th:nth-child(6), table td:nth-child(6),
+table th:nth-child(7), table td:nth-child(7) { 
+  width: 8%; /* Reduzir mais a largura das colunas Início e Fim Teste */
+}
+
+table th:nth-child(5), table td:nth-child(5),
+table th:nth-child(8), table td:nth-child(8) {
+  width: 8%; /* Ajustar a largura das colunas de progresso */
+}
+
+table th:nth-child(9), table td:nth-child(9) {
+  width: 12%; /* Ajustar a coluna Implantação */
+}
+
+table th:nth-child(10), table td:nth-child(10) {
+  width: 15%; /* Ajustar a coluna Responsável */
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Footer */
+footer {
+  background-color: #003399;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+}
+
+/* Progress Circle */
+.progress-circle {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.progress-circle.complete .progress-bar {
+  stroke: #28a745 !important;
+}
+
+.progressbar-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.8rem;
+  color: #000;
+}
+
+/* Modal & Button Styles */
+button.add-task-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.add-task-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Hide modal initially */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark background with transparency */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: black;
+  cursor: pointer;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal input, .modal select {
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

@@ -1,0 +1,196 @@
+{% extends 'admin_layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 style="text-align: center;">Gerenciar Atividades</h2>
+
+    <!-- Botões de Adicionar e Editar -->
+    <button id="add-task-btn" class="add-task-btn">Adicionar Tarefa</button>
+    <button id="edit-task-btn" class="add-task-btn">Editar Tarefa</button> <!-- Botão de Edição Adicionado -->
+
+    <!-- Modal para Adicionar Tarefas -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close close-add">&times;</span>
+            <h2>Adicionar Nova Tarefa</h2>
+            <form id="add-task-form">
+                <label for="section">Selecione a Seção:</label>
+                <select id="section" name="section" required>
+                    <option value="transferencia_veiculos_novos">Transferência de Veículos Novos</option>
+                    <option value="remessa_veiculos_demonstracao">Remessa de Veículos para Demonstração</option>
+                    <option value="outras_tarefas">Outras Tarefas</option>
+                </select>
+
+                <label for="name">Nome da Atividade:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="system">Sistema:</label>
+                <input type="text" id="system" name="system" required>
+
+                <label for="start_dev">Início (Desenvolvimento):</label>
+                <input type="date" id="start_dev" name="start_dev" required>
+
+                <label for="end_dev">Fim (Desenvolvimento):</label>
+                <input type="date" id="end_dev" name="end_dev" required>
+
+                <label for="progress_dev">Progresso Desenvolvimento:</label>
+                <input type="text" id="progress_dev" name="progress_dev" required>
+
+                <label for="start_test">Início (Testes):</label>
+                <input type="date" id="start_test" name="start_test" required>
+
+                <label for="end_test">Fim (Testes):</label>
+                <input type="date" id="end_test" name="end_test" required>
+
+                <label for="progress_test">Progresso Testes:</label>
+                <input type="text" id="progress_test" name="progress_test" required>
+
+                <label for="deployment">Implantação:</label>
+                <input type="date" id="deployment" name="deployment" required>
+
+                <label for="responsible">Responsável:</label>
+                <input type="text" id="responsible" name="responsible" required>
+
+                <button type="submit">Salvar Tarefa</button>
+                <button type="button" class="cancel-btn cancel-add-btn">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Edição de Tarefas -->
+    <div id="editTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close close-edit">&times;</span>
+            <h2>Editar Tarefa</h2>
+            <form id="edit-task-form">
+                <label for="edit-section">Selecione a Seção:</label>
+                <select id="edit-section" name="section" required>
+                    <option value="transferencia_veiculos_novos">Transferência de Veículos Novos</option>
+                    <option value="remessa_veiculos_demonstracao">Remessa de Veículos para Demonstração</option>
+                    <option value="outras_tarefas">Outras Tarefas</option>
+                </select>
+
+                <label for="edit-task-select">Selecione a Tarefa:</label>
+                <select id="edit-task-select" name="task_name" required>
+                    <!-- Este campo será preenchido dinamicamente com as tarefas correspondentes à seção selecionada -->
+                </select>
+
+                <label for="edit-name">Nome da Atividade:</label>
+                <input type="text" id="edit-name" name="name" required>
+
+                <label for="edit-system">Sistema:</label>
+                <input type="text" id="edit-system" name="system" required>
+
+                <label for="edit-start_dev">Início (Desenvolvimento):</label>
+                <input type="date" id="edit-start_dev" name="start_dev" required>
+
+                <label for="edit-end_dev">Fim (Desenvolvimento):</label>
+                <input type="date" id="edit-end_dev" name="end_dev" required>
+
+                <label for="edit-progress_dev">Progresso Desenvolvimento:</label>
+                <input type="text" id="edit-progress_dev" name="progress_dev" required>
+
+                <label for="edit-start_test">Início (Testes):</label>
+                <input type="date" id="edit-start_test" name="start_test" required>
+
+                <label for="edit-end_test">Fim (Testes):</label>
+                <input type="date" id="edit-end_test" name="end_test" required>
+
+                <label for="edit-progress_test">Progresso Testes:</label>
+                <input type="text" id="edit-progress_test" name="progress_test" required>
+
+                <label for="edit-deployment">Implantação:</label>
+                <input type="date" id="edit-deployment" name="deployment" required>
+
+                <label for="edit-responsible">Responsável:</label>
+                <input type="text" id="edit-responsible" name="responsible" required>
+
+                <button type="submit">Salvar Alterações</button>
+                <button type="button" class="cancel-btn cancel-edit-btn">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleção dos modais e botões
+        var editTaskModal = document.getElementById("editTaskModal");
+        var editTaskBtn = document.getElementById("edit-task-btn");
+        var editSectionSelect = document.getElementById("edit-section");
+        var editTaskSelect = document.getElementById("edit-task-select");
+        var closeEditSpan = document.getElementsByClassName("close-edit")[0];
+        var cancelEditBtn = document.getElementsByClassName("cancel-edit-btn")[0];
+
+        // Abrir o modal de edição ao clicar no botão Editar
+        editTaskBtn.onclick = function() {
+            editTaskModal.style.display = "block";
+        };
+
+        // Fechar o modal de edição ao clicar no botão 'Cancelar' ou 'Fechar'
+        closeEditSpan.onclick = function() {
+            editTaskModal.style.display = "none";
+        };
+
+        cancelEditBtn.onclick = function() {
+            editTaskModal.style.display = "none";
+        };
+
+        // Preencher a lista de tarefas com base na seção selecionada
+        editSectionSelect.onchange = function() {
+            var section = editSectionSelect.value;
+            // Limpar a lista de tarefas
+            editTaskSelect.innerHTML = '';
+
+            // Fazer uma requisição para buscar as tarefas da seção selecionada
+            fetch(`/get-tasks?section=${section}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.tasks) {
+                        // Preencher o select com as tarefas da seção
+                        data.tasks.forEach(task => {
+                            var option = document.createElement('option');
+                            option.value = task.name;
+                            option.textContent = task.name;
+                            editTaskSelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => console.error('Erro ao carregar tarefas:', error));
+        };
+
+        // Preencher os campos do modal de edição com base na tarefa selecionada
+        editTaskSelect.onchange = function() {
+            var section = editSectionSelect.value;
+            var taskName = editTaskSelect.value;
+
+            // Fazer uma requisição para buscar os dados da tarefa
+            fetch('/get-task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `section=${section}&task_name=${taskName}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.task) {
+                    // Preencher os campos com os dados da tarefa
+                    document.getElementById("edit-name").value = data.task.name;
+                    document.getElementById("edit-system").value = data.task.system;
+                    document.getElementById("edit-start_dev").value = data.task.start_dev;
+                    document.getElementById("edit-end_dev").value = data.task.end_dev;
+                    document.getElementById("edit-progress_dev").value = data.task.progress_dev;
+                    document.getElementById("edit-start_test").value = data.task.start_test;
+                    document.getElementById("edit-end_test").value = data.task.end_test;
+                    document.getElementById("edit-progress_test").value = data.task.progress_test;
+                    document.getElementById("edit-deployment").value = data.task.deployment;
+                    document.getElementById("edit-responsible").value = data.task.responsible;
+                }
+            })
+            .catch(error => console.error('Erro ao buscar tarefa:', error));
+        };
+    });
+</script>
+
+{% endblock %}

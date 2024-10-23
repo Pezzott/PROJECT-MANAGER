@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pareto Analysis</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" type="image/svg+xml">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/pareto_styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+    <!-- Ford Logo -->
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" alt="Ford Logo" class="img-fluid">
+        <h1>Projeto: IAP Fase II - Análise de Prioridades - Método de Pareto</h1>
+        <a href="/" class="btn btn-info gantt-btn">Home</a>
+    </div>
+
+    <div class="container">
+        <!-- Dropdown to select task category -->
+        <label for="task-category">Selecione a Categoria da Tarefa:</label>
+        <select id="task-category" class="form-control">
+            <option value="transferencia_veiculos_novos">Transferência de Veículos Novos</option>
+            <option value="remessa_veiculos_demonstração">Remessa de Veículos para Demonstração</option>
+            <option value="outras_tarefas">Outras Tarefas</option>
+        </select>
+
+        <!-- Pareto Chart Container -->
+        <div id="pareto-chart">
+            {{ pareto_html|safe }}
+        </div>
+    </div>
+
+    <footer class="footer text-center mt-5">
+        © 2024 Ford Motors. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryDropdown = document.getElementById('task-category');
+            const paretoChartContainer = document.getElementById('pareto-chart');
+    
+            // Function to clear previous chart before rendering a new one
+            function clearChart() {
+                paretoChartContainer.innerHTML = '';  // Clear previous chart
+            }
+    
+            categoryDropdown.addEventListener('change', function () {
+                const selectedCategory = categoryDropdown.value;
+                loadParetoChart(selectedCategory);
+            });
+    
+            // Initial load with default category
+            loadParetoChart('transferencia_veiculos_novos');
+    
+            function loadParetoChart(category) {
+                clearChart();  // Clear the previous chart before loading a new one
+                fetch(`/tasks?category=${category}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length === 0) {
+                            paretoChartContainer.innerHTML = '<p>No data available for the selected category.</p>';
+                            return;
+                        }
+                        const trace1 = {
+                            x: data.map(item => item.atividade),
+                            y: data.map(item => item.impacto),
+                            type: 'bar',
+                            name: 'Impacto'
+                        };
+                        const trace2 = {
+                            x: data.map(item => item.atividade),
+                            y: data.map(item => item.cumulative_percentage),
+                            type: 'scatter',
+                            mode: 'lines+markers',
+                            name: 'Cumulativo %'
+                        };
+                        const layout = {
+                            title: 'Análise de Prioridades - Método de Pareto',
+                            xaxis: { title: 'Atividade' },
+                            yaxis: { title: 'Impacto' }
+                        };
+                        Plotly.newPlot(paretoChartContainer, [trace1, trace2], layout);
+                    })
+                    .catch(error => console.error('Error loading Pareto chart data:', error));
+            }
+        });
+    </script>
+</body>
+</html>

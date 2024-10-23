@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gantt Chart</title>
+    <!-- Include the specific styles for the Gantt Chart -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/gantt_styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Project Gantt Chart</h1>
+
+        <!-- Dropdown to select task category -->
+        <label for="task-category">Select Task Category:</label>
+        <select id="task-category">
+            <option value="transferencia_veiculos_novos">Transferência de Veículos Novos</option>
+            <option value="remessa_veiculos_demonstracao">Remessa de Veículos para Demonstração</option>
+            <option value="outras_tarefas">Outras Tarefas</option>
+        </select>
+
+        <!-- Gantt Chart Container -->
+        <div id="gantt-chart"></div>
+
+        <a href="/" class="btn btn-primary">Back to Home</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch task data based on the selected category
+            const categoryDropdown = document.getElementById('task-category');
+            categoryDropdown.addEventListener('change', function () {
+                const selectedCategory = categoryDropdown.value;
+                loadGanttChart(selectedCategory);
+            });
+
+            // Initial load for the default category
+            loadGanttChart('transferencia_veiculos_novos');
+
+            function loadGanttChart(category) {
+                fetch(`/tasks?category=${category}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Parse data to create the Gantt chart
+                        const ganttData = [];
+                        data.forEach(task => {
+                            ganttData.push({
+                                x: [task.start_dev, task.end_dev],
+                                y: [task.name],
+                                type: 'bar',
+                                orientation: 'h',
+                                marker: { color: '#003399' },
+                                name: 'Desenvolvimento'
+                            });
+                            ganttData.push({
+                                x: [task.start_test, task.end_test],
+                                y: [task.name],
+                                type: 'bar',
+                                orientation: 'h',
+                                marker: { color: '#28a745' },
+                                name: 'Testes'
+                            });
+                            ganttData.push({
+                                x: [task.start_deployment, task.end_deployment],
+                                y: [task.name],
+                                type: 'bar',
+                                orientation: 'h',
+                                marker: { color: '#ff6347' },
+                                name: 'Implantação'
+                            });
+                        });
+
+                        // Plot the Gantt chart using Plotly
+                        const layout = {
+                            title: 'Progresso das Atividades - ' + category.replace('_', ' ').toUpperCase(),
+                            xaxis: {
+                                title: 'Progresso (%)',
+                                type: 'linear',
+                                range: [0, 100] // Ensure all bars have 0-100 range for percentage completion
+                            },
+                            yaxis: {
+                                title: 'Atividades',
+                                automargin: true,
+                                ticks: 'outside',
+                                ticklen: 8,
+                            },
+                            height: 1000,  // Increased height for better display
+                            margin: {
+                                l: 350,  // Extend left margin for longer task names
+                                r: 50,
+                                t: 50,
+                                b: 50
+                            },
+                            barmode: 'stack',  // Stacked bar mode for better overview
+                            showlegend: true
+                        };
+
+                        Plotly.newPlot('gantt-chart', ganttData, layout);
+                    })
+                    .catch(error => console.error('Error loading Gantt chart data:', error));
+            }
+        });
+    </script>
+</body>
+</html>

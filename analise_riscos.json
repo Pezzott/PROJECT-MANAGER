@@ -1,0 +1,25 @@
+{
+    "riscos": [
+        {
+            "risco": "Atraso na API de emissão de NFe",
+            "acao_tomada": "Contratado novo profissional técnico especialista em programação Java para auxiliar o Ronaldo. O Ronaldo ficará como suporte de processos e de mapeamento para o analista.",
+            "tempo_mitigacao": "Até 07 de outubro para iniciar com o novo programador.",
+            "status": "Vermelho",
+            "progresso": "10%"
+        },
+        {
+            "risco": "Desenvolvimento dos retornos de status via Webhook",
+            "acao_tomada": "Contratado novo profissional técnico especialista em programação Java para auxiliar o Ronaldo. O Ronaldo ficará como suporte de processos e de mapeamento para o analista.",
+            "tempo_mitigacao": "Até 07 de outubro para iniciar com o novo programador.",
+            "status": "Vermelho",
+            "progresso": "10%"
+        },
+        {
+            "risco": "Prazo desenvolvimento/testes",
+            "acao_tomada": "Precisaremos mudar o tempo do desenvolvimento para Novembro-Dezembro, realizar testes durante Janeiro e ir para produção em Fevereiro.",
+            "tempo_mitigacao": "Alinhamento com Erasmo e Anderson.",
+            "status": "Amarelo",
+            "progresso": "0%"
+        }
+    ]
+}
